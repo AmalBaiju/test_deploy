@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header'); -%>
+
+    <body>
+        <!-- Navigation-->
+        <%- include('layouts/navigation'); -%>
+            <!-- Page Header-->
+            <header class="masthead" style="background-image: url('assets/img/g2-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="page-heading">
+                                <h1>G2 Page</h1>
+                                <span class="subheading">Book a G2 Test</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Content-->
+            <main class="mb-4">
+                <div class="container px-4 px-lg-5">
+                    <% if (success_messages && success_messages.length > 0) { %>
+                        <div class="alert alert-success">
+                            <%= success_messages.join('<br>') %>
+                        </div>
+                    <% } %>
+                    
+                    <% if (error_messages && error_messages.length > 0) { %>
+                        <div class="alert alert-danger">
+                            <%= error_messages.join('<br>') %>
+                        </div>
+                    <% } %>
+
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="my-5">
+                                <form id="contactForm" action="/g2/save" method="POST">
+                                    <div class="form-floating">
+                                        <input class="form-control" id="fname" name="fname" type="text"
+                                            value="<%= user.fname %>" placeholder="Enter your name..."
+                                            data-sb-validations="required" />
+                                        <label for="fname">First Name</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">A first name is
+                                            required.</div>
+                                    </div>
+                                    <h1>Personal Information</h1>
+                                    <div class="form-floating">
+                                        <input class="form-control" id="lname" name="lname" type="text"
+                                            value="<%= user.lname %>" placeholder="Enter your name..."
+                                            data-sb-validations="required" />
+                                        <label for="lname">Last Name</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">A last name is
+                                            required.</div>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" id="license" name="license" type="text"
+                                            value="<%= user.license %>" placeholder="Enter your license Number..."
+                                            data-sb-validations="required" />
+                                        <label for="license">License Number</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">A license number
+                                            is required.</div>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" id="age" name="age" type="number"
+                                            value="<%= user.age %>" placeholder="Enter your age..."
+                                            data-sb-validations="required" />
+                                        <label for="datepicker">Age</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">An age is
+                                            required.</div>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" id="dob" name="dob" type="date"
+                                            value="<%= user.dob %>" placeholder="Enter your Date of Birth..."
+                                            data-sb-validations="required" />
+                                        <label for="dob">DOB</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">A Date of Birth
+                                            is required.</div>
+                                    </div>
+                                    <h1>Car Details</h1>
+                                    <div class="form-floating">
+                                        <input class="form-control" id="make" name="car_details[make]"
+                                            value="<%= user.car_details?.make %>" type="text"
+                                            placeholder="Enter the car make..." data-sb-validations="required" />
+                                        <label for="make">Make</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">Car make is
+                                            required.</div>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" id="model" name="car_details[model]"
+                                            value="<%= user.car_details?.model %>" type="text"
+                                            placeholder="Enter car model..." data-sb-validations="required" />
+                                        <label for="model">Model</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">A model name is
+                                            required.</div>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" id="year" name="car_details[year]"
+                                            value="<%= user.car_details?.year %>" type="number"
+                                            placeholder="Enter year..." data-sb-validations="required" />
+                                        <label for="year">Year</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">year is required.
+                                        </div>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" id="pno" name="car_details[pno]"
+                                            value="<%= user.car_details?.pno %>" type="text"
+                                            placeholder="Enter plat number..." data-sb-validations="required" />
+                                        <label for="pno">plat number</label>
+                                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is
+                                            required.</div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="d-none" id="submitErrorMessage">
+                                        <div class="text-center text-danger mb-3">Error sending message!</div>
+                                    </div>
+                                    <!-- Submit Button-->
+                                    <button class="btn btn-primary" id="submitButton" type="submit">Save</button>
+                                </form>
+
+                                <form action="/appointments/g2Appointment" method="POST">
+                                    <div class="form-group">
+                                        <h1>Available timeslots</h1>
+                                        <div class="form-group">
+                                            <label>Date</label>
+                                            <input type="date" class="form-control" id="scheduleDate"
+                                                name="scheduleDate" value="<%= scheduleDate %>" onchange=dateChange()>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Timeslot</label>
+                                            <% for (let i=0; i<timeslots.length; i++) {%>
+                                                <div>
+                                                    <% if (timeslots[i].isTimeSlotAvailable) {%>                                                        
+                                                        
+                                                    <input type="radio" name="timeslot" value="<%= timeslots[i].id %>"
+                                                        
+                                                        required>
+
+                                                        <label for="timeslot">
+                                                            <%= timeslots[i].time %>
+                                                        </label>
+                                                        <% } %>
+                                                </div>
+
+                                                <% } %>
+                                                    <button type="submit" class="btn btn-primary">Make Appointment</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- Footer-->
+            <%- include('layouts/footer'); -%>
+                <%- include('layouts/scripts'); -%>
+                    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+                    <script>
+                        function dateChange() {
+                            window.location.href = "/g2?scheduleDate=" + document.getElementById('scheduleDate').value;
+                        }
+                    </script>
+
+    </body>
+
+</html>

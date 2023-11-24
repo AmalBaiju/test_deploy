@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('layouts/header'); -%>
+    <body> 
+        <!-- Navigation-->
+        <%- include('layouts/navigation'); -%>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('/assets/img/g2-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>G Page</h1>
+                            <span class="subheading">Book a G Test</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">                         
+                        <div class="row">
+                        <%  if (user)  {%>
+                            <div class="container">
+                                <h1>Personal Information</h1>
+                                <form action="/g2/update" method="POST">
+                                    <input type="hidden" name="id" value="<%= user.id %>">
+                                    <div class="form-group">
+                                        <label for="fname">First Name</label>
+                                        <input type="text" disabled="disabled" class="form-control" id="fname" name="fname"
+                                            placeholder="Enter First Name" value="<%= user.fname %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lname">Last Name</label>
+                                        <input type="text" disabled="disabled" class="form-control" id="lname" name="lname"
+                                            placeholder="Enter Last Name" value="<%= user.lname %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="license">License Number (8 characters alphanumeric)</label>
+                                        <input type="text" disabled="disabled" class="form-control" id="license" name="license"
+                                            placeholder="Enter License Number" value="<%= user.license %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="age">Age</label>
+                                        <input type="number" disabled="disabled" class="form-control" id="age" name="age"
+                                            placeholder="Enter Age" value="<%= user.age%>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="text" disabled="disabled" class="form-control" id="dob" name="Dob" placeholder="Enter the Date"
+                                            value="<%= user.dob?.toLocaleDateString('en-US') %>" required>
+                                    </div>
+
+                                    <h1>Car Information</h1>
+                                    <div class="form-group">
+                                        <label for="make">Make</label>
+                                        <input type="text" class="form-control" id="make" name="make"
+                                            placeholder="Enter Make" value="<%= user.car_details?.make %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="model">Model</label>
+                                        <input type="text" class="form-control" id="model" name="model"
+                                            placeholder="Enter Model" value="<%= user.car_details?.model %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="year">Year</label>
+                                        <input type="number" class="form-control" id="year" name="year"
+                                            placeholder="Enter Year" value="<%= user.car_details?.year%>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pno">Plate Number</label>
+                                        <input type="text" class="form-control" id="pno" name="pno"
+                                            placeholder="Enter Plate Number" value="<%= user.car_details?.pno %>" required>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                                </form>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Footer-->
+        <%- include('layouts/footer'); -%>
+        <%- include('layouts/scripts'); -%>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js">
+    document.addEventListener("DOMContentLoaded", function() {
+    const submitButton = document.getElementById("submitButton");
+    submitButton.addEventListener("click", function() {
+      const submitPressed = true;
+      window.submitPressed = submitPressed;
+    });
+  });
+</script>
+    </body>
+</html>

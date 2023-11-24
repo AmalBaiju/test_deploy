@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header'); -%>
+
+    <body>
+        <!-- Navigation-->
+        <%- include('layouts/navigation'); -%>
+            <!-- Page Header-->
+            <header class="masthead" style="background-image: url('/assets/img/g2-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="page-heading">
+                                <h1>Appointment Page</h1>
+                                <span class="subheading">Add Appointment Details</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Content-->
+            <main class="mb-4">
+                <div class="container px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="row">
+
+                                <% if (user) {%>
+                                    <div class="container">
+                                        <% if (success_messages && success_messages.length > 0) { %>
+                                            <div class="alert alert-success">
+                                                <%= success_messages.join('<br>') %>
+                                            </div>
+                                        <% } %>
+                                        
+                                        <% if (error_messages && error_messages.length > 0) { %>
+                                            <div class="alert alert-danger">
+                                                <%= error_messages.join('<br>') %>
+                                            </div>
+                                        <% } %> 
+                                        <h1>Appointment Information</h1>
+                                        <form action="/appointments/create" method="POST">
+                                            <!-- <input type="hidden" name="id" value="<%= user.id %>"> -->
+                                            <div class="form-group">
+                                                <label for="date"><b>Date</b></label>
+                                                <input type="date" class="form-control" id="date" name="date"
+                                                    placeholder="Enter Appointment Date">
+                                            </div>
+
+
+                                            
+                                             <div class="form-group">
+                                            <b>Please select your Time slot</b><br>
+                                            <input type="radio"  id="09:00" name="time"
+                                                value="09:00">
+                                            <label for="09:00">09:00</label><br>
+                                            <input type="radio"  id="09:30" name="time"
+                                                value="09:30">
+                                            <label for="09:30">09:30</label><br>
+                                            <input type="radio"  id="10:00" name="time"
+                                                value="10:00">
+                                            <label for="10:00">10:00</label><br>
+                                            <input type="radio"  id="10:30" name="time"
+                                                value="10:30">
+                                            <label for="10:30">10:30</label><br>
+                                            <input type="radio"  id="11:00" name="time"
+                                                value="11:00">
+                                            <label for="11:00">11:00</label><br>
+                                            <input type="radio"  id="11:30" name="time"
+                                                value="11:30">
+                                            <label for="11:30">11:30</label><br>
+                                            <input type="radio"  id="12:00" name="time"
+                                                value="12:00">
+                                            <label for="12:00">12:00</label><br>
+                                        </div> 
+                                            <button type="submit" class="btn btn-primary">Add Timeslot</button>
+
+                                            
+
+                                        </form>
+                                    </div>
+                                    <% } %>
+                            </div>
+                        </div>
+                    </div>
+            </main>
+            <!-- Footer-->
+            <%- include('layouts/footer'); -%>
+                <%- include('layouts/scripts'); -%>
+                    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+                    <!-- * *                               SB Forms JS                               * *-->
+                    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+                    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+                    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js">
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const submitButton = document.getElementById("submitButton");
+                            submitButton.addEventListener("click", function () {
+                                const submitPressed = true;
+                                window.submitPressed = submitPressed;
+                            });
+                        });
+                    </script>
+    </body>
+
+</html>
